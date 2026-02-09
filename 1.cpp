@@ -33,7 +33,7 @@ template <std::floating_point F>
 void solve() {
     int fractionBits = 0;
     F eps = 1;
-    while (F{1} + eps / 2 != F{1}) {
+    while (1 + eps / 2 != 1) {
         eps /= 2;
         fractionBits++;
     }
