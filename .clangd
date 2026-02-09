@@ -1,0 +1,23 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -Wcovered-switch-default]
+
+---
+
+If:
+	PathMatch: .*\.c
+CompileFlags:
+  Add: [-xc, -std=c11]
+
+---
+
+If:
+	PathMatch: .*\.h
+CompileFlags:
+  Add: [-xc-header, -std=c11]
+
+---
+
+If:
+	PathMatch: .*\.(cc|cpp|hh|hpp)
+CompileFlags:
+  Add: [-std=c++23]
