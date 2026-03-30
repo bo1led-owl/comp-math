@@ -3,21 +3,44 @@ name:               comp-math
 version:            0.1.0.0
 build-type:         Simple
 
-common warnings
-    ghc-options: -Wall
+common options
+    ghc-options:      -Wall -Wextra -threaded -rtsopts -with-rtsopts=-N8
+
+common shared-properties
+    import:           options
+    default-language: Haskell2010
+    build-depends:    base,
+                      extra,
+                      safe,
+                      mtl,
+                      vector,
+                      comp-math:async,
+                      Chart,
+                      Chart-diagrams,
+                      filepath,
+
+library async
+    import:           options
+    build-depends:    base
+    exposed-modules:  Async
+    hs-source-dirs:   async/
+    default-language: Haskell2010
 
 executable task2
-    import:           warnings
+    import:           shared-properties
     main-is:          Main.hs
     other-modules:    Bisection, FixedPointIteration, Newton, Secants, Utils, Counted
-    build-depends:    base, mtl
     hs-source-dirs:   task2/
-    default-language: Haskell2010
 
 executable task2-fractal
-    import:           warnings
+    import:           shared-properties
     main-is:          Fractal.hs
     other-modules:    Utils
-    build-depends:    base, mtl, JuicyPixels
+    build-depends:    JuicyPixels
     hs-source-dirs:   task2/
-    default-language: Haskell2010
+
+executable task3
+    import:           shared-properties
+    main-is:          Main.hs
+    other-modules:    
+    hs-source-dirs:   task3/
