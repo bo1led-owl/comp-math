@@ -39,8 +39,9 @@ executable task2-fractal
     build-depends:    JuicyPixels
     hs-source-dirs:   task2/
 
-executable task3
+executable task5
     import:           shared-properties
     main-is:          Main.hs
-    other-modules:    
-    hs-source-dirs:   task3/
+    other-modules:    PeanoNat, Vec, VecMath, Ode
+    build-depends:    ieee754
+    hs-source-dirs:   task5/

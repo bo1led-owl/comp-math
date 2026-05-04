@@ -76,8 +76,8 @@ async task =
     forkIO (task >>= putMVar mvar)
     pure future
 
-async_ :: IO a -> Async (Future ())
-async_ = async . void
+async_ :: IO a -> Async ()
+async_ = void . async . void
 
 runAsync :: Async a -> IO a
 runAsync (Async comp) = do
@@ -93,7 +93,7 @@ mapAsync :: (Traversable t) => (a -> IO b) -> t a -> IO (t b)
 mapAsync f items = runAsync (traverse (\x -> async (f x) >>= await) items)
 
 mapAsync_ :: (Traversable t) => (a -> IO b) -> t a -> IO ()
-mapAsync_ f items = runAsync (traverse_ (\x -> async_ (f x) >>= await) items)
+mapAsync_ f items = runAsync (traverse_ (\x -> async (f x) >>= await) items)
 
 forAsync :: (Traversable t) => t a -> (a -> IO b) -> IO (t b)
 forAsync = flip mapAsync
