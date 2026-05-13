@@ -3,45 +3,51 @@ name:               comp-math
 version:            0.1.0.0
 build-type:         Simple
 
-common options
-    ghc-options:      -Wall -Wextra -threaded -rtsopts -with-rtsopts=-N8
-
-common shared-properties
-    import:           options
+common executable-options
+    ghc-options:      -Wall -Wextra -Wno-x-partial -threaded -rtsopts -with-rtsopts=-N8
     default-language: Haskell2010
-    build-depends:    base,
-                      extra,
-                      safe,
-                      mtl,
-                      vector,
-                      comp-math:async,
-                      Chart,
-                      Chart-diagrams,
-                      filepath,
 
 library async
-    import:           options
+    ghc-options:      -Wall -Wextra -Wno-x-partial
+    default-language: Haskell2010
     build-depends:    base
     exposed-modules:  Async
     hs-source-dirs:   async/
-    default-language: Haskell2010
 
 executable task2
-    import:           shared-properties
+    import:           executable-options
     main-is:          Main.hs
     other-modules:    Bisection, FixedPointIteration, Newton, Secants, Utils, Counted
+    build-depends:    base,
+                      mtl,
+                      Chart,
+                      Chart-diagrams,
     hs-source-dirs:   task2/
 
 executable task2-fractal
-    import:           shared-properties
+    import:           executable-options
     main-is:          Fractal.hs
     other-modules:    Utils
-    build-depends:    JuicyPixels
+    build-depends:    base,
+                      JuicyPixels
     hs-source-dirs:   task2/
 
 executable task5
-    import:           shared-properties
+    import:           executable-options
     main-is:          Main.hs
     other-modules:    PeanoNat, Vec, VecMath, Ode
-    build-depends:    ieee754
+    build-depends:    base,
+                      ieee754,
+                      safe,
+                      mtl,
+                      comp-math:async,
+                      Chart,
+                      Chart-diagrams,
     hs-source-dirs:   task5/
+
+executable task6
+    import:           executable-options
+    main-is:          Main.hs
+    other-modules:    BVP2, Thomas, DFT, Utils
+    build-depends:    base, safe
+    hs-source-dirs:   task6/

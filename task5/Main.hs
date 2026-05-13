@@ -90,34 +90,8 @@ printOrders =
     ]
     ( \(name, solver) -> async_ $ do
         let orders = order solver
-        putStrLn (name ++ " order of convergence:\t" ++ show (orders))
+        putStrLn (name ++ " order of convergence:\t" ++ show orders)
     )
-
--- solveStiffOde :: Vec (ToPeano 2) Double -> Double -> Double -> Double -> Async ()
--- solveStiffOde phi t0 a b =
---   for_
---     [ ("stiff, euler's explicit", eulerExplicit),
---       ("stiff, euler's implicit", eulerImplicit (newtons 4 epsilon))
---     ]
---     ( \(name, solver) -> async_ $ do
---         let g = grid a b gridSize
---         let solution = solver system g
---         putStrLn
---           ( name
---               ++ " max error magnitude:\t"
---               ++ show (maximum $ fmap (\(t, s) -> magnitude (exact t `vsub` s)) (g `zip` solution))
---           )
---     )
---   where
---     exact t = 2 * exp (-t) - exp (-(1000 * t)) `Cons` exp (-(1000 * t)) - exp (-t) `Cons` Nil
---     gridSize = 100
---     system =
---       OdeSystem
---         ( \_ (u `Cons` v `Cons` Nil) ->
---             998 * u + 1998 * v `Cons` -999 * u - 1999 * v `Cons` Nil
---         )
---         t0
---         phi
 
 drawHunterVictim :: Double -> Double -> Double -> Async ()
 drawHunterVictim t0 l r = async_ $ do
@@ -170,5 +144,4 @@ drawHunterVictim t0 l r = async_ $ do
 main :: IO ()
 main = runAsync_ $ do
   printOrders
-  -- solveStiffOde (1 `Cons` 0 `Cons` Nil) 0 0 0.1
   drawHunterVictim 0 0 1
